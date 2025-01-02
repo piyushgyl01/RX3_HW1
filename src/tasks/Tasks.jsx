@@ -1,7 +1,8 @@
-import { use } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {statusBtnPress} from './taskSlice';
 
 export default function Tasks() {
+  const dispatch = useDispatch();
   const tasks = useSelector((state) => {
     console.log(state.tasks);
     return state.tasks;
@@ -14,10 +15,10 @@ export default function Tasks() {
         <div key={task.date}>
           <h2>{task.date}</h2>
           <ul>
-            {task.todos.map((todo) => (
+            {task.todos.map((todo, todoIndex) => (
               <li>
-                {todo.toDo} <br />
-                <span>- Status: {todo.status}</span>
+                {todo.toDo}
+                <button onClick={() => dispatch(statusBtnPress({date: task.date, todoIndex}))}>{todo.status}</button>
               </li>
             ))}
           </ul>

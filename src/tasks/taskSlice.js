@@ -36,7 +36,18 @@ export const taskSlice = createSlice({
       },
     ],
   },
-  reducers: {},
+  reducers: {
+    statusBtnPress: (state, action) => {
+      const { date, todoIndex } = action.payload;
+      const task = state.tasks.find((task) => task.date === date);
+      if (task) {
+        task.todos[todoIndex].status =
+          task.todos[todoIndex].status === "Pending" ? "Completed" : "Pending";
+      }
+    },
+  },
 });
+
+export const {statusBtnPress} = taskSlice.actions
 
 export default taskSlice.reducer;
